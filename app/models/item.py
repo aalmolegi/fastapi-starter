@@ -2,6 +2,7 @@ from sqlalchemy import String, ForeignKey, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
+
 class Item(Base):
     __tablename__ = "items"
 

@@ -1,15 +1,29 @@
+import sys
+from pathlib import Path
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config, pool
+
 from alembic import context
+from sqlalchemy import engine_from_config, pool
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.append(str(ROOT_DIR))
 
 from app.core.config import settings
 from app.db.base import Base
-from app.models import user, item  # noqa: F401
+
+# IMPORTANT: import models so Base.metadata is populated
+from app.models.user import User  # noqa: F401
+from app.models.item import Item  # noqa: F401
 
 config = context.config
-fileConfig(config.config_file_name)
 
-# Override URL from .env
+if config.config_file_name is not None:
+    try:
+        fileConfig(config.config_file_name)
+    except Exception:
+        pass
+
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 target_metadata = Base.metadata
