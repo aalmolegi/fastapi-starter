@@ -1,6 +1,6 @@
 # FastAPI Starter (CRUD + JWT + SQLAlchemy + Alembic)
 
-A small, production-style FastAPI starter you can drop into a GitHub repo:
+A small, production-style FastAPI starter includes:
 - FastAPI + Uvicorn
 - SQLAlchemy 2.x
 - SQLite by default (switch to Postgres easily)
